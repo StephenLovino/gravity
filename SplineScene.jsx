@@ -77,6 +77,20 @@ const SplineScene = () => {
           }
         }}
       />
+      {/* Mask to cover Spline watermark when present (cannot remove on free plan) */}
+      <div
+        className="spline-watermark-mask"
+        style={{
+          position: 'absolute',
+          right: 6,
+          bottom: 6,
+          width: 160,
+          height: 36,
+          borderRadius: 18,
+          background: 'linear-gradient(180deg, rgba(20,22,25,0.0) 0%, rgba(20,22,25,0.85) 60%, rgba(20,22,25,1) 100%)',
+          pointerEvents: 'none'
+        }}
+      />
     </div>
   );
 };

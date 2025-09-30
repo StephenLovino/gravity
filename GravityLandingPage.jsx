@@ -1,6 +1,7 @@
 import React from 'react';
 import './GravityLandingPage.css';
 import SplineScene from './SplineScene';
+import IphoneScene from './IphoneScene';
 import Silk from './Silk';
 import Header from './Header';
 
@@ -10,7 +11,8 @@ const GravityLandingPage = () => {
       <Header />
       {/* Floating 3D Spline Scene - Fixed Position Across All Sections */}
       <div className="floating-3d-spline">
-        <SplineScene />
+        {/* Swap to IphoneScene when /public/models/iphone.glb is available */}
+        <IphoneScene />
       </div>
 
       {/* Hero Section */}

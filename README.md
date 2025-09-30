@@ -105,6 +105,19 @@ The project can be deployed to any static hosting service:
 - **Netlify**: Connect GitHub repo or drag & drop dist folder
 - **GitHub Pages**: Build and deploy dist folder
 
+## 3D iPhone Model (three.js)
+
+To remove the Spline watermark and use a fully transparent background, you can render the iPhone directly with three.js/react-three-fiber:
+
+1. Export your model from Spline or other 3D tool as a GLB file.
+2. Place the file at `public/models/iphone.glb` (create the folders if they don't exist).
+3. The app already includes `IphoneScene.jsx` which will load this path and render it, replacing the Spline embed.
+4. If you update the file, just refresh the app; no code changes needed.
+
+Notes:
+- We rely on the built-in `GLTFLoader` and an `Environment` preset for lighting. You can tweak camera and lighting in `IphoneScene.jsx`.
+- If you prefer to keep the Spline scene, switch back in `GravityLandingPage.jsx`.
+
 ## Customization
 
 To customize the design:
