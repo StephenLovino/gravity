@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "node node_modules/vite/bin/vite.js build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate:favicons": "node scripts/generate-favicons.js"
   },
   "dependencies": {
     "@react-three/fiber": "8.15.14",
@@ -19,6 +20,8 @@
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@vitejs/plugin-react": "^4.1.0",
+    "png-to-ico": "^2.1.8",
+    "sharp": "^0.33.4",
     "vite": "^4.5.0"
   }
 }
