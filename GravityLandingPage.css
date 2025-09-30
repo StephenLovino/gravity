@@ -35,6 +35,12 @@ body {
   overflow: hidden;
 }
 
+.hero-silk-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
 /* Floating 3D Spline Scene - Fixed Position Across All Sections */
 .floating-3d-spline {
   position: fixed;
@@ -128,8 +134,8 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 92px;
-  background: linear-gradient(180deg, #141619 80%, rgba(20, 22, 25, 0.00) 100%);
+  height: 220px;
+  background: linear-gradient(180deg, rgba(20, 22, 25, 0.00) 0%, #141619 70%);
   z-index: 2;
 }
 
@@ -139,6 +145,25 @@ body {
   text-align: center;
   position: relative;
   z-index: 3;
+  top: -48px;
+}
+
+.hero-avatar-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.hero-avatar {
+  width: 124px;
+  height: 124px;
+  border-radius: 62px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  object-fit: cover;
+  object-position: 50% 40%;
+  transform: scale(1.18);
+  will-change: transform;
 }
 
 .hero-title {
@@ -195,6 +220,17 @@ body {
 /* About Section */
 .about-section {
   padding: 128px 0;
+  position: relative;
+}
+.about-section::before {
+  content: '';
+  position: absolute;
+  top: -140px;
+  left: 0;
+  right: 0;
+  height: 140px;
+  background: linear-gradient(180deg, #141619 0%, rgba(20, 22, 25, 0.00) 100%);
+  pointer-events: none;
 }
 
 .about-header {
@@ -302,6 +338,16 @@ body {
 .market-making-section {
   position: relative;
   padding: 128px 0;
+}
+.market-making-section::before {
+  content: '';
+  position: absolute;
+  top: -140px;
+  left: 0;
+  right: 0;
+  height: 140px;
+  background: linear-gradient(180deg, #141619 0%, rgba(20, 22, 25, 0.00) 100%);
+  pointer-events: none;
 }
 
 .background-blob {
@@ -490,6 +536,17 @@ body {
 /* Exchange Services Section */
 .exchange-services-section {
   padding: 64px 0;
+  position: relative;
+}
+.exchange-services-section::before {
+  content: '';
+  position: absolute;
+  top: -140px;
+  left: 0;
+  right: 0;
+  height: 140px;
+  background: linear-gradient(180deg, #141619 0%, rgba(20, 22, 25, 0.00) 100%);
+  pointer-events: none;
 }
 
 .exchange-visualization {
@@ -592,6 +649,16 @@ body {
 .partners-section {
   padding: 128px 0;
   position: relative;
+}
+.partners-section::before {
+  content: '';
+  position: absolute;
+  top: -140px;
+  left: 0;
+  right: 0;
+  height: 140px;
+  background: linear-gradient(180deg, #141619 0%, rgba(20, 22, 25, 0.00) 100%);
+  pointer-events: none;
 }
 
 .partners-background {
@@ -731,6 +798,17 @@ body {
 /* Testimonials Section */
 .testimonials-section {
   padding: 128px 0;
+  position: relative;
+}
+.testimonials-section::before {
+  content: '';
+  position: absolute;
+  top: -140px;
+  left: 0;
+  right: 0;
+  height: 140px;
+  background: linear-gradient(180deg, #141619 0%, rgba(20, 22, 25, 0.00) 100%);
+  pointer-events: none;
 }
 
 .testimonials-header {
@@ -855,6 +933,17 @@ body {
 /* Join Team Section */
 .join-team-section {
   padding: 96px 0;
+  position: relative;
+}
+.join-team-section::before {
+  content: '';
+  position: absolute;
+  top: -140px;
+  left: 0;
+  right: 0;
+  height: 140px;
+  background: linear-gradient(180deg, #141619 0%, rgba(20, 22, 25, 0.00) 100%);
+  pointer-events: none;
 }
 
 .join-team-content {
@@ -925,6 +1014,16 @@ body {
 .contact-section {
   padding: 100px 0 128px;
   position: relative;
+}
+.contact-section::before {
+  content: '';
+  position: absolute;
+  top: -140px;
+  left: 0;
+  right: 0;
+  height: 140px;
+  background: linear-gradient(180deg, #141619 0%, rgba(20, 22, 25, 0.00) 100%);
+  pointer-events: none;
 }
 
 .contact-background {
@@ -1016,6 +1115,7 @@ body {
   .hero-content {
     width: 100%;
     max-width: 500px;
+    top: -24px;
   }
   
   .title-line-1,

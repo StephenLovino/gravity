@@ -1,6 +1,7 @@
 import React from 'react';
 import './GravityLandingPage.css';
 import SplineScene from './SplineScene';
+import Silk from './Silk';
 
 const GravityLandingPage = () => {
   return (
@@ -12,8 +13,20 @@ const GravityLandingPage = () => {
 
       {/* Hero Section */}
       <section className="hero-section">
+        <div className="hero-silk-bg">
+          <Silk speed={5} scale={1} color="#7B7481" noiseIntensity={1.5} rotation={0} />
+        </div>
         <div className="hero-overlay"></div>
         <div className="hero-content">
+          <div className="hero-avatar-wrap">
+            <img
+              className="hero-avatar"
+              src="/src/hero-avatar.jpg"
+              alt="Hero avatar"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
           <div className="hero-text">
             <h1 className="hero-title">
               <span className="title-line-1">Steph Jobs</span>
