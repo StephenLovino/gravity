@@ -2,10 +2,12 @@ import React from 'react';
 import './GravityLandingPage.css';
 import SplineScene from './SplineScene';
 import Silk from './Silk';
+import Header from './Header';
 
 const GravityLandingPage = () => {
   return (
     <div className="gravity-landing">
+      <Header />
       {/* Floating 3D Spline Scene - Fixed Position Across All Sections */}
       <div className="floating-3d-spline">
         <SplineScene />
