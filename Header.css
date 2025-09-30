@@ -11,11 +11,17 @@
   align-items: center;
   justify-content: space-between;
   height: 88px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
 .brand-logo {
   height: 42px;
-  width: auto;
+  width: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .main-nav {

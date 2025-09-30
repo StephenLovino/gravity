@@ -27,11 +27,10 @@ body {
 /* Hero Section */
 .hero-section {
   width: 100%;
-  height: 810px;
+  min-height: 100vh;
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
   overflow: hidden;
 }
 
@@ -41,20 +40,32 @@ body {
   z-index: 1;
 }
 
-/* Floating 3D Spline Scene - Fixed Position Across All Sections */
-.floating-3d-spline {
+/* 3D iPhone Scene - Full Viewport Seamless Integration */
+.hero-3d-model {
   position: fixed;
-  top: 50%;
-  right: 5%;
-  width: 300px;
-  height: 500px;
-  z-index: 10;
-  transform: translateY(-50%);
-  perspective: 1000px;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
   pointer-events: auto;
   background: transparent;
   border: none;
   box-shadow: none;
+  overflow: visible;
+}
+
+.hero-3d-model canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background: transparent;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover;
 }
 
 .spline-container {
@@ -114,17 +125,133 @@ body {
   box-shadow: none !important;
 }
 
+/* Interactive Arrow Indicator */
+.interactive-arrow {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(20, 22, 25, 0.9);
+  padding: 12px 20px;
+  border-radius: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.interactive-arrow.visible {
+  opacity: 1;
+  animation: pulse 2s infinite, bounce 3s infinite;
+}
+
+.interactive-arrow-text {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.interactive-arrow-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--brand-accent);
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: translateY(-50%) scale(1); }
+  50% { transform: translateY(-50%) scale(1.05); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateX(0); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(3px); }
+}
+
+/* Hide scrollbar and keep everything in viewport */
+html, body {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.gravity-landing {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-sub-description {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  margin-bottom: 32px;
+  line-height: 1.5;
+  text-align: left;
+  margin-left: 0;
+}
+
 /* Responsive adjustments */
 @media (max-width: 1200px) {
-  .floating-3d-spline {
-    width: 250px;
-    height: 400px;
-    right: 2%;
+  .hero-content {
+    min-height: 70vh;
+  }
+  
+  .interactive-arrow {
+    right: 15px;
   }
 }
 
 @media (max-width: 768px) {
-  .floating-3d-spline {
+  .hero-content {
+    text-align: left;
+    min-height: auto;
+    justify-content: flex-start;
+  }
+  
+  .hero-text {
+    text-align: left;
+    padding: 20px 0;
+    max-width: 100%;
+    margin-left: 0;
+  }
+  
+  .hero-avatar-wrap {
+    justify-content: flex-start;
+    margin-left: 0;
+  }
+  
+  .hero-title {
+    text-align: left;
+    margin-left: 0;
+  }
+  
+  .hero-description {
+    text-align: left;
+    margin-left: 0;
+  }
+  
+  .hero-sub-description {
+    text-align: left;
+    margin-left: 0;
+  }
+  
+  .cta-button {
+    text-align: left;
+    margin-left: 0;
+    align-self: flex-start;
+  }
+  
+  .hero-3d-model {
+    display: none;
+  }
+  
+  .interactive-arrow {
     display: none;
   }
 }
@@ -140,18 +267,35 @@ body {
 }
 
 .hero-content {
-  width: 584px;
-  height: 392px;
-  text-align: center;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
   position: relative;
   z-index: 3;
-  top: -48px;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.hero-text {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 0;
+  max-width: 500px;
+  z-index: 4;
+  position: relative;
+  margin-left: 0;
 }
 
 .hero-avatar-wrap {
   display: flex;
-  justify-content: center;
-  margin: 0 auto 24px;
+  justify-content: flex-start;
+  margin-bottom: 24px;
+  margin-left: 0;
 }
 
 .hero-avatar {
@@ -168,6 +312,8 @@ body {
 
 .hero-title {
   margin-bottom: 32px;
+  text-align: left;
+  margin-left: 0;
 }
 
 .title-line-1 {
@@ -193,7 +339,8 @@ body {
   line-height: 30px;
   color: #E5E5E5;
   max-width: 528px;
-  margin: 0 auto 41px;
+  margin: 0 0 41px 0;
+  text-align: left;
 }
 
 .cta-button {
@@ -211,6 +358,9 @@ body {
   text-transform: uppercase;
   cursor: pointer;
   transition: opacity 0.3s ease;
+  text-align: left;
+  margin-left: 0;
+  align-self: flex-start;
 }
 
 .cta-button:hover {
