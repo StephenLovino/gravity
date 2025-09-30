@@ -21,7 +21,7 @@ const GravityLandingPage = () => {
           <div className="hero-avatar-wrap">
             <img
               className="hero-avatar"
-              src="/src/hero-avatar.jpg"
+              src="/hero-avatar.jpg"
               alt="Hero avatar"
               loading="eager"
               decoding="async"
