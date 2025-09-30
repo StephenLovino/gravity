@@ -67,7 +67,7 @@
   position: absolute;
   inset: 0;
   border-radius: 8px;
-  background: linear-gradient(135deg, #665DCD 0%, #5FA4E6 45%, #D2AB67 100%);
+  background: var(--brand-gradient);
   z-index: -1;
 }
 

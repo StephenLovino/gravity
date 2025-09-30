@@ -54,8 +54,27 @@ const SplineScene = () => {
           height: '100%',
           background: 'transparent'
         }}
-        onLoad={() => {
-          console.log('Spline loaded');
+        onLoad={(app) => {
+          // Attempt to force transparent background and hide any backdrop objects
+          try {
+            if (app && typeof app.setBackgroundColor === 'function') {
+              app.setBackgroundColor('rgba(0,0,0,0)');
+            }
+            // Try common backdrop layer names and types and hide them if found
+            const candidateNames = ['Background', 'BG', 'Backdrop', 'Panel', 'Rectangle', 'Frame'];
+            if (app && typeof app.findObjectByName === 'function') {
+              candidateNames.forEach((name) => {
+                const obj = app.findObjectByName(name);
+                if (obj && typeof app.setVisible === 'function') {
+                  app.setVisible(obj.id, false);
+                } else if (obj && typeof obj.visible !== 'undefined') {
+                  obj.visible = false;
+                }
+              });
+            }
+          } catch (e) {
+            // no-op; fallback to CSS transparency already applied
+          }
         }}
       />
     </div>

@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: #141619;
+  background-color: var(--brand-bg);
   color: #fff;
   line-height: 1.6;
 }
@@ -15,7 +15,7 @@ body {
 .gravity-landing {
   width: 100%;
   min-height: 100vh;
-  background-color: #141619;
+  background-color: var(--brand-bg);
 }
 
 .container {
@@ -202,7 +202,7 @@ body {
   align-items: center;
   border-radius: 2px;
   border: none;
-  background: linear-gradient(135deg, #665DCD 0%, #5FA4E6 44.76%, #D2AB67 100%);
+  background: var(--brand-gradient);
   color: #fff;
   font-family: 'Inter', sans-serif;
   font-size: 19px;
@@ -276,7 +276,7 @@ body {
 }
 
 .stat-card.featured {
-  background: linear-gradient(135deg, #665DCD 0%, #5FA4E6 44.76%, #D2AB67 100%);
+  background: var(--brand-gradient);
 }
 
 .stat-number {
@@ -311,7 +311,7 @@ body {
   position: absolute;
   width: 2px;
   height: 352px;
-  background: linear-gradient(135deg, #665DCD 0%, #5FA4E6 44.76%, #D2AB67 100%);
+  background: var(--brand-gradient);
   top: 2px;
 }
 
@@ -329,7 +329,7 @@ body {
   position: absolute;
   width: calc(100% - 4px);
   height: 2px;
-  background: linear-gradient(135deg, #665DCD 0%, #5FA4E6 44.76%, #D2AB67 100%);
+  background: var(--brand-gradient);
   left: 2px;
   bottom: 176px;
 }
@@ -423,7 +423,7 @@ body {
 
 .service-link span {
   border-bottom: 2px solid transparent;
-  background: linear-gradient(135deg, #665DCD 0%, #5FA4E6 44.76%, #D2AB67 100%) bottom;
+  background: var(--brand-gradient) bottom;
   background-size: 100% 2px;
   background-repeat: no-repeat;
   padding-bottom: 1px;
@@ -927,7 +927,7 @@ body {
 }
 
 .indicator.active {
-  background: linear-gradient(135deg, #665DCD 0%, #5FA4E6 44.76%, #D2AB67 100%);
+  background: var(--brand-gradient);
 }
 
 /* Join Team Section */
