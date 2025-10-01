@@ -35,12 +35,18 @@ body {
 }
 
 .hero-silk-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
+  display: none;
 }
 
 /* 3D iPhone Scene - Full Viewport Seamless Integration */
+/* Global fixed silk background behind all content */
+.global-silk-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
 .hero-3d-model {
   position: fixed;
   top: 0;
@@ -272,11 +278,7 @@ html, body {
     background: transparent;
   }
 
-  .mobile-silk-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
+  .mobile-silk-bg { display: none; }
 
   /* Ensure the three.js canvas sits above the silk background */
   .mobile-3d-section canvas {

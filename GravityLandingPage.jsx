@@ -28,12 +28,12 @@ const GravityLandingPage = () => {
 
   return (
     <div className="gravity-landing">
+      <div className="global-silk-bg">
+        <Silk speed={5} scale={1} color="#7B7481" noiseIntensity={1.5} rotation={0} />
+      </div>
       
       {/* Hero Section */}
       <section className="hero-section">
-        <div className="hero-silk-bg">
-          <Silk speed={5} scale={1} color="#7B7481" noiseIntensity={1.5} rotation={0} />
-        </div>
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <div className="hero-text">
@@ -77,9 +77,6 @@ const GravityLandingPage = () => {
 
       {/* Mobile-only 3D section below the hero */}
       <section className="mobile-3d-section" id="mobile-3d">
-        <div className="mobile-silk-bg">
-          <Silk speed={5} scale={1} color="#7B7481" noiseIntensity={1.5} rotation={0} />
-        </div>
         <PureThreeScene />
       </section>
     </div>
