@@ -161,14 +161,25 @@ const PureThreeScene = ({ onReady }) => {
               container.style.zIndex = '100';
             }
 
-            // Rotate camera around target by 180° to show rear
+            // Rotate camera around target by 180° to show rear and fit model
             if (cameraRef.current && controlsRef.current) {
               const target = controlsRef.current.target.clone();
               const cam = cameraRef.current;
+              // 180-degree rotate around Y
               const offset = cam.position.clone().sub(target);
               offset.x *= -1;
               offset.z *= -1;
-              cam.position.copy(target.clone().add(offset));
+              // Fit model to view using bounding sphere
+              if (modelRef.current) {
+                const sphere = new THREE.Sphere();
+                new THREE.Box3().setFromObject(modelRef.current).getBoundingSphere(sphere);
+                const fov = cam.fov * (Math.PI / 180);
+                const distance = sphere.radius / Math.tan(fov / 2);
+                const dir = offset.clone().normalize();
+                cam.position.copy(target.clone().add(dir.multiplyScalar(distance * 1.15))); // add small margin
+              } else {
+                cam.position.copy(target.clone().add(offset));
+              }
               controlsRef.current.update();
             }
           }
