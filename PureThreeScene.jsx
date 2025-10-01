@@ -37,27 +37,36 @@ const PureThreeScene = () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x000000, 0); // Transparent background
+    // Improve color/brightness rendering
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
     rendererRef.current = renderer;
 
     mountRef.current.appendChild(renderer.domElement);
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight(0x404040, 0.7);
+    const ambientLight = new THREE.AmbientLight(0x404040, 1.0);
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
     directionalLight.position.set(2, 2, 3);
     scene.add(directionalLight);
 
-    const pointLight = new THREE.PointLight(0xffffff, 0.5);
+    const pointLight = new THREE.PointLight(0xffffff, 0.8);
     pointLight.position.set(-2, -1, 2);
     scene.add(pointLight);
 
-    const spotLight = new THREE.SpotLight(0xffffff, 0.6);
+    const spotLight = new THREE.SpotLight(0xffffff, 0.9);
     spotLight.position.set(0, 3, 2);
     spotLight.angle = 0.3;
     spotLight.penumbra = 0.5;
     scene.add(spotLight);
+
+    // Soft sky/ground fill light to lift dark faces
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x404040, 0.6);
+    hemiLight.position.set(0, 3, 0);
+    scene.add(hemiLight);
 
     // Load iPhone model
     const loader = new GLTFLoader();
