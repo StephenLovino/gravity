@@ -208,6 +208,15 @@ html, body {
 }
 
 @media (max-width: 768px) {
+  /* Allow scrolling on mobile */
+  html, body {
+    overflow-y: auto;
+    height: auto;
+  }
+  .gravity-landing {
+    height: auto;
+    overflow: visible;
+  }
   .hero-content {
     text-align: left;
     min-height: auto;
