@@ -97,6 +97,7 @@ const PureThreeScene = () => {
       controls.enableDamping = true;
       controls.dampingFactor = 0.06;
       controls.rotateSpeed = 0.5;
+      controls.enableZoom = true;
       controls.enablePan = false;
       controls.minDistance = 1.5;
       controls.maxDistance = 8;
@@ -105,18 +106,9 @@ const PureThreeScene = () => {
       controlsRef.current = controls;
     });
 
-    // Scroll-based zoom control
-    let scrollZoom = 0.5; // Start at middle zoom level
-    const handleScroll = (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      const delta = event.deltaY;
-      scrollZoom = Math.max(0, Math.min(1, scrollZoom + delta * 0.002)); // More responsive zoom
-    };
-
-    // Add wheel event listener for zoom control
+    // Ensure pointer gestures are captured by the canvas for OrbitControls
     const canvas = renderer.domElement;
-    canvas.addEventListener('wheel', handleScroll, { passive: false });
+    canvas.style.touchAction = 'none';
 
     // Animation loop
     const animate = () => {
@@ -126,20 +118,7 @@ const PureThreeScene = () => {
         controlsRef.current.update();
       }
 
-      // Apply scroll-based zoom to camera
-      if (cameraRef.current) {
-        const minDistance = 1.0; // Closer minimum
-        const maxDistance = 6.0; // Further maximum
-        const targetDistance = minDistance + (maxDistance - minDistance) * (1 - scrollZoom);
-        
-        // More responsive camera zoom
-        const currentDistance = cameraRef.current.position.distanceTo(new THREE.Vector3(2, 0, 0));
-        const newDistance = currentDistance + (targetDistance - currentDistance) * 0.2; // Faster response
-        
-        // Update camera position to maintain zoom
-        const direction = cameraRef.current.position.clone().normalize();
-        cameraRef.current.position.copy(direction.multiplyScalar(newDistance));
-      }
+      // No custom camera zooming; rely on OrbitControls default behavior
 
       renderer.render(scene, camera);
     };
@@ -160,7 +139,6 @@ const PureThreeScene = () => {
 
     // Cleanup
     return () => {
-      canvas.removeEventListener('wheel', handleScroll);
       window.removeEventListener('resize', handleResize);
       
       if (mountRef.current && renderer.domElement) {

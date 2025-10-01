@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './GravityLandingPage.css';
 import PureThreeScene from './PureThreeScene';
 import Silk from './Silk';
-import Header from './Header';
 
 const GravityLandingPage = () => {
   const [showArrow, setShowArrow] = useState(false);
@@ -20,7 +19,6 @@ const GravityLandingPage = () => {
 
   return (
     <div className="gravity-landing">
-      <Header />
       
       {/* Hero Section */}
       <section className="hero-section">
@@ -44,10 +42,10 @@ const GravityLandingPage = () => {
               <span className="title-line-2">is Cooking</span>
             </h1>
             <p className="hero-description">
-              Just another day to cook Apple
+              Just another day to cook Apple 
             </p>
             <p className="hero-sub-description">
-              Drag to rotate • Scroll to zoom • Explore the 3D iPhone model
+              Drag to rotate • Scroll to zoom
             </p>
             <button className="cta-button">
               <span>See What's Cooking</span>
