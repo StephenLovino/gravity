@@ -2,13 +2,14 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-const PureThreeScene = () => {
+const PureThreeScene = ({ onReady }) => {
   const mountRef = useRef(null);
   const sceneRef = useRef(null);
   const rendererRef = useRef(null);
   const cameraRef = useRef(null);
   const modelRef = useRef(null);
   const controlsRef = useRef(null);
+  const isFullscreenFallbackRef = useRef(false);
 
   useEffect(() => {
     if (!mountRef.current) return;
@@ -34,11 +35,21 @@ const PureThreeScene = () => {
       alpha: true,
       powerPreference: "high-performance"
     });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    // Cap pixel ratio lower on small screens for performance
-    const isSmallScreen = window.innerWidth <= 768;
-    const maxDPR = isSmallScreen ? 1.5 : 2;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxDPR));
+    const updateRendererSize = () => {
+      const container = mountRef.current;
+      if (!container) return;
+      const width = container.clientWidth || window.innerWidth;
+      const height = container.clientHeight || window.innerHeight;
+      renderer.setSize(width, height);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      // Cap pixel ratio lower on small screens for performance
+      const isSmallScreen = width <= 768;
+      const maxDPR = isSmallScreen ? 1.5 : 2;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxDPR));
+    };
+
+    updateRendererSize();
     renderer.setClearColor(0x000000, 0); // Transparent background
     // Improve color/brightness rendering
     renderer.outputEncoding = THREE.sRGBEncoding;
@@ -116,6 +127,53 @@ const PureThreeScene = () => {
       controls.autoRotate = false;
       controls.target.set(2, 0, 0);
       controlsRef.current = controls;
+
+      // Expose an API for the parent to trigger fullscreen rear-view
+      if (typeof onReady === 'function') {
+        onReady({
+          enterFullscreenRearView: async () => {
+            const canvas = rendererRef.current?.domElement;
+            const container = mountRef.current;
+            if (!canvas || !container) return;
+
+            // Try native Fullscreen API first
+            try {
+              if (canvas.requestFullscreen) {
+                await canvas.requestFullscreen();
+              } else if (canvas.webkitRequestFullscreen) {
+                await canvas.webkitRequestFullscreen();
+              } else {
+                // Fallback to CSS-based fullscreen
+                isFullscreenFallbackRef.current = true;
+                container.style.position = 'fixed';
+                container.style.inset = '0px';
+                container.style.width = '100vw';
+                container.style.height = '100vh';
+                container.style.zIndex = '100';
+              }
+            } catch (_) {
+              // Fallback on error
+              isFullscreenFallbackRef.current = true;
+              container.style.position = 'fixed';
+              container.style.inset = '0px';
+              container.style.width = '100vw';
+              container.style.height = '100vh';
+              container.style.zIndex = '100';
+            }
+
+            // Rotate camera around target by 180° to show rear
+            if (cameraRef.current && controlsRef.current) {
+              const target = controlsRef.current.target.clone();
+              const cam = cameraRef.current;
+              const offset = cam.position.clone().sub(target);
+              offset.x *= -1;
+              offset.z *= -1;
+              cam.position.copy(target.clone().add(offset));
+              controlsRef.current.update();
+            }
+          }
+        });
+      }
     });
 
     // Ensure pointer gestures are captured by the canvas for OrbitControls
@@ -137,24 +195,19 @@ const PureThreeScene = () => {
 
     animate();
 
-    // Handle window resize
-    const handleResize = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
-      const isSmall = width <= 768;
-      const cap = isSmall ? 1.5 : 2;
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, cap));
-    };
-
+    // Handle window/container resize
+    const handleResize = () => updateRendererSize();
     window.addEventListener('resize', handleResize);
+    let resizeObserver;
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(() => updateRendererSize());
+      resizeObserver.observe(mountRef.current);
+    }
 
     // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
+      if (resizeObserver) resizeObserver.disconnect();
       
       if (mountRef.current && renderer.domElement) {
         mountRef.current.removeChild(renderer.domElement);

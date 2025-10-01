@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './GravityLandingPage.css';
 import PureThreeScene from './PureThreeScene';
 import Silk from './Silk';
 
 const GravityLandingPage = () => {
   const [showArrow, setShowArrow] = useState(false);
+  const mobileSceneApiRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,7 +78,10 @@ const GravityLandingPage = () => {
 
       {/* Mobile-only 3D section below the hero */}
       <section className="mobile-3d-section" id="mobile-3d">
-        <PureThreeScene />
+        <button className="fullscreen-btn" onClick={() => mobileSceneApiRef.current?.enterFullscreenRearView?.()}>
+          Full Screen
+        </button>
+        <PureThreeScene onReady={(api) => { mobileSceneApiRef.current = api; }} />
       </section>
     </div>
   );

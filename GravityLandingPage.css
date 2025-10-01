@@ -278,6 +278,19 @@ html, body {
     background: transparent;
   }
 
+  .fullscreen-btn {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    z-index: 4;
+    padding: 10px 14px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    background: rgba(20,22,25,0.85);
+    color: #fff;
+    font-size: 14px;
+  }
+
   .mobile-silk-bg { display: none; }
 
   /* Ensure the three.js canvas sits above the silk background */
