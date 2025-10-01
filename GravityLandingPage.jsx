@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './GravityLandingPage.css';
 import PureThreeScene from './PureThreeScene';
 import Silk from './Silk';
@@ -15,6 +15,15 @@ const GravityLandingPage = () => {
     window.addEventListener('scroll', handleScroll);
     setShowArrow(true); // Show arrow immediately for testing
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleSeeWhatsCooking = useCallback(() => {
+    if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+      const el = document.getElementById('mobile-3d');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
   }, []);
 
   return (
@@ -47,14 +56,14 @@ const GravityLandingPage = () => {
             <p className="hero-sub-description">
               Drag to rotate • Scroll to zoom
             </p>
-            <button className="cta-button">
+            <button className="cta-button" onClick={handleSeeWhatsCooking}>
               <span>See What's Cooking</span>
             </button>
           </div>
         </div>
       </section>
 
-      {/* Floating 3D iPhone Scene - Fixed Position Across All Sections */}
+      {/* Floating 3D iPhone Scene - Fixed Position Across All Sections (desktop) */}
       <div className="hero-3d-model">
         <PureThreeScene />
         {/* Interactive Arrow Indicator */}
@@ -65,6 +74,11 @@ const GravityLandingPage = () => {
           </svg>
         </div>
       </div>
+
+      {/* Mobile-only 3D section below the hero */}
+      <section className="mobile-3d-section" id="mobile-3d">
+        <PureThreeScene />
+      </section>
     </div>
   );
 };
