@@ -256,10 +256,6 @@ html, body {
     align-self: flex-start;
   }
   
-  .hero-3d-model {
-    display: none;
-  }
-  
   .interactive-arrow {
     display: none;
   }

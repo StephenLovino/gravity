@@ -35,7 +35,10 @@ const PureThreeScene = () => {
       powerPreference: "high-performance"
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    // Cap pixel ratio lower on small screens for performance
+    const isSmallScreen = window.innerWidth <= 768;
+    const maxDPR = isSmallScreen ? 1.5 : 2;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxDPR));
     renderer.setClearColor(0x000000, 0); // Transparent background
     // Improve color/brightness rendering
     renderer.outputEncoding = THREE.sRGBEncoding;
@@ -142,6 +145,9 @@ const PureThreeScene = () => {
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
+      const isSmall = width <= 768;
+      const cap = isSmall ? 1.5 : 2;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, cap));
     };
 
     window.addEventListener('resize', handleResize);
