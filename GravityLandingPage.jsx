@@ -80,7 +80,6 @@ const GravityLandingPage = () => {
         <div className="mobile-silk-bg">
           <Silk speed={5} scale={1} color="#7B7481" noiseIntensity={1.5} rotation={0} />
         </div>
-        <div className="mobile-3d-overlay"></div>
         <PureThreeScene />
       </section>
     </div>
